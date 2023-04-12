@@ -1,45 +1,39 @@
-// Select the player element
 const player = document.querySelector("#player");
-
 const playerRect = player.getBoundingClientRect();
+const startButton = document.querySelector("#start-game");
+const game = document.querySelector("#game");
+const trail = document.querySelector(".trail");
+const gameRect = game.getBoundingClientRect();
 
-player.style.top = playerRect.top + "px";
-player.style.left = playerRect.left + "px";
 player.style.visibility = "hidden";
 
 let gameState = "stopped";
-
-// Set the initial position of the player
 let position = { x: 0, y: 0 };
-
-// Set the initial speed and direction of the player
-let speed = 0;
-let direction = { x: 0, y: 0 };
-
-// Set the maximum speed of the player
-const maxSpeed = 50;
-
-// Set the acceleration of the player
-const acceleration = 0.8;
-
-// Set the friction of the player
-const friction = 0.3;
-
-// Set the time the key was pressed
+let speed = 5;
 let startTime = null;
+
+startButton.addEventListener("click", () => {
+  gameState = "running";
+  player.style.visibility = "visible";
+  startButton.style.visibility = "hidden";
+  game.style.display = "flex";
+  player.style.top = playerRect.top + "px";
+  player.style.left = playerRect.left + "px";
+});
 
 // Add an event listener to the document for keydown events
 document.addEventListener("keydown", (event) => {
   if (gameState === "stopped") {
     return
   }
-  if (startTime === null) {
-    startTime = Date.now();
-  }
+  if (startTime === null) startTime = Date.now();
 
-  if (Date.now() - startTime > 500) {
-    speed = 10;
-  }
+  let elapsedTime = Date.now() - startTime;
+  
+  speed = elapsedTime <= 500 ? 10 :
+          elapsedTime <= 1000 ? 20 :
+          elapsedTime <= 1500 ? 30 :
+          elapsedTime <= 2000 ? 40 : 50;
 
   if (event.key === "ArrowUp") {
     movePlayer(0, -speed);
@@ -64,11 +58,8 @@ document.addEventListener("keyup", (event) => {
 
 // Define a function to move the player
 function movePlayer(dx, dy) {
-  // Calculate the new position of the player
   const playerRect = player.getBoundingClientRect();
-  const gameRect = game.getBoundingClientRect();
-  const trail = document.querySelector(".trail")
-
+  // Calculate the new position of the player
   const newTop = playerRect.top + dy;
   const newLeft = playerRect.left + dx;
 
@@ -86,31 +77,15 @@ function movePlayer(dx, dy) {
     dot.classList.add("dot");
     dot.style.top = player.style.top;
     dot.style.left = player.style.left;
+    dot.style.height = player.style.height;
+    dot.style.width = player.style.width;
+    dot.addEventListener("transitionend", () => {
+      trail.removeChild(dot);
+    });
     trail.appendChild(dot);
     setTimeout(() => {
       dot.style.opacity = 0;
-    }, 10);
-    setTimeout(() => {
-      trail.removeChild(dot);
-    }, 500);
-
-    playerRect.top = newTop;
-    playerRect.left = newLeft;
+    }, 2);
   }
 }
 
-const startButton = document.querySelector("#start-game");
-startButton.addEventListener("click", () => {
-  // Set the game state to "running"
-  gameState = "running";
-  // Hide the "Start Game" button
-  player.style.visibility = "visible";
-  startButton.style.visibility = "hidden";
-  // Show the game
-  const game = document.querySelector("#game");
-  game.style.display = "flex";
-  // Set the initial position of the player
-  const playerRect = player.getBoundingClientRect();
-  player.style.top = playerRect.top + "px";
-  player.style.left = playerRect.left + "px";
-});
