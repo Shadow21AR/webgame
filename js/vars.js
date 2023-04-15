@@ -29,9 +29,9 @@ const maxDistance = 40; // maximum distance the stick can move
 
 // Canvas vars
 const stars = [];
-const numStars = 100;
+const numStars = 50;
 const minSize = 2;
-const maxSize = 10;
+const maxSize = 5;
 const minColorValue = 125;
 const maxColorValue = 255;
 
