@@ -109,8 +109,8 @@ function generateBackground(canvas, ctx) {
 
         //random velocity
         const velocity = {
-            x: (Math.random() - 0.5) * Math.random() * 2,
-            y: (Math.random() - 0.5) * Math.random() * 2,
+            x: (Math.random() - 0.5) * Math.random() * 3,
+            y: (Math.random() - 0.5) * Math.random() * 3,
         }
         // Add the star to the array
         stars.push({ x, y, size, color, velocity });
