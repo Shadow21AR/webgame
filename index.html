@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
     <title>WIP - Game by Sado</title>
     <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 </head>
 
 <body>
-    <div id="game">
-        <svg id="player" width="20" height="20">
-            <circle cx="10" cy="10" r="10" />
-        </svg>
-        <div class="trail"></div>
-        <div id="joystick-container"></div>
-    </div>
+    <canvas id="game">s</canvas>
+    <svg id="player" width="15" height="15">
+        <circle cx="7.5" cy="7.5" r="7.5" />
+    </svg>
+    <div id="trail"></div>
+    <div id="joystick-container"></div>
     <div id="controls">
-        <button id="start-button">Start Game</button>
+        <button id="start-button">Start</button>
         <button id="settings">Settings</button>
     </div>
+    <script src="js/vars.js"></script>
+    <script src="js/event.js"></script>
+    <script src="js/functions.js"></script>
     <script src="js/script.js"></script>
 </body>
 
