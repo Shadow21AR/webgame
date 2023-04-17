@@ -79,6 +79,7 @@ document.addEventListener('touchstart', (event) => {
     if (!isGameRunning) {
         return
     }
+    joystickContainer = document.getElementById("joystick-container");
     const touch = event.touches[0];
     const x = touch.clientX;
     const y = touch.clientY;

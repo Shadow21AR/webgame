@@ -109,8 +109,8 @@ function generateBackground(canvas, ctx) {
 
         //random velocity
         const velocity = {
-            x: (Math.random() - 0.5) * Math.random() * 3,
-            y: (Math.random() - 0.5) * Math.random() * 3,
+            x: (Math.random() * 6) - 3,
+            y: (Math.random() * 6) - 3,
         }
         // Add the star to the array
         stars.push({ x, y, size, color, velocity });
@@ -149,7 +149,7 @@ function updateStars() {
     const canvasWidth = canvas.width;
     const canvasHeight = canvas.height;
     const stars = document.getElementsByClassName("star");
-    const playerRect = player.getBoundingClientRect();
+    const gameRect = game.getBoundingClientRect();
 
     for (let i = 0; i < stars.length; i++) {
         const star = stars[i];
@@ -166,8 +166,8 @@ function updateStars() {
         if (checkCollision(player, star)) {
             // Change star velocity
             star.setAttribute("data-velocity", JSON.stringify({
-                x: Math.random() * 1.5,
-                y: Math.random() * 1.5
+                x:(Math.random() * 6) - 3,
+                y: (Math.random() * 6) - 3
             }));
         }
 
@@ -178,8 +178,8 @@ function updateStars() {
                 if (checkCollision(star, otherStar)) {
                     // Change star velocity
                     star.setAttribute("data-velocity", JSON.stringify({
-                        x: Math.random() * 1.5,
-                        y: Math.random() * 1.5
+                        x: (Math.random() * 6) - 3,
+                        y: (Math.random() * 6) - 3
                     }));
                 }
             }
@@ -192,18 +192,21 @@ function updateStars() {
             newTop < -starRect.height ||
             newTop > canvasHeight
         ) {
-            // Respawn star randomly near player
+            // Respawn star randomly
             const x = Math.floor(
-                Math.random() * (playerRect.width + canvasWidth) - playerRect.width
+                Math.random() * gameRect.width
             );
             const y = Math.floor(
-                Math.random() * (playerRect.height + canvasHeight) - playerRect.height
+                Math.random() * gameRect.height
             );
-            star.style.left = playerRect.left + x + "px";
-            star.style.top = playerRect.top + y + "px";
+            star.size = Math.floor(Math.random() * (maxSize - minSize + 1) + minSize);
+            star.width = star.size + 'px';
+            star.height = star.size + 'px';
+            star.style.left =  x + "px";
+            star.style.top = y + "px";
             star.setAttribute("data-velocity", JSON.stringify({
-                x: Math.random() * 1.5,
-                y: Math.random() * 1.5
+                x: (Math.random() * 6) - 3,
+                y: (Math.random() * 6) - 3
             }));
         }
     }
